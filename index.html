@@ -21,7 +21,7 @@
       <input type="checkbox" id="themeSwitch">
       <span class="ts-track">🌙☀️</span>
     </label>
-    <button class="btn btn-sm" id="settingsBtn" title="修改密码" style="padding:4px 8px;font-size:14px">⚙️</button>
+
     <button class="btn btn-sm" id="logoutBtn" title="退出登录" style="padding:4px 10px;font-size:12px">🚪 退出</button>
   </div>
 </div>
@@ -264,33 +264,7 @@
 
 
 
-<!-- 设置弹窗 -->
-<div id="setOverlay" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.4);align-items:center;justify-content:center">
-  <div class="glass-dialog" style="border-radius:10px;width:400px;max-width:92%;padding:24px;display:flex;flex-direction:column;gap:14px">
-    <div style="display:flex;align-items:center;justify-content:space-between">
-      <strong style="font-size:15px">⚙️ 修改账号密码</strong>
-      <button class="btn btn-sm" id="setCloseBtn">✕</button>
-    </div>
-    <div class="login-field">
-      <input id="setOldUser" class="f-input" placeholder="原用户名" style="text-align:center" spellcheck="false">
-    </div>
-    <div class="login-field">
-      <input id="setOldPass" type="password" class="f-input" placeholder="原密码" style="text-align:center" spellcheck="false">
-    </div>
-    <div style="border-top:1px solid var(--border-l);margin:4px 0"></div>
-    <div class="login-field">
-      <input id="setNewUser" class="f-input" placeholder="新用户名" style="text-align:center" spellcheck="false">
-    </div>
-    <div class="login-field">
-      <input id="setNewPass" type="password" class="f-input" placeholder="新密码" style="text-align:center" spellcheck="false">
-    </div>
-    <div id="setErr" style="font-size:13px;color:var(--red);min-height:0;text-align:center;opacity:0;transition:opacity .2s"></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button class="btn" id="setCancelBtn">取消</button>
-      <button class="btn btn-primary" id="setSaveBtn">💾 保存</button>
-    </div>
-  </div>
-</div>
+
 
 <div class="toast-wrap" id="tt"></div>
 
