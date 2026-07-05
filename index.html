@@ -11,7 +11,7 @@
 <div class="top" id="topBar">
   <div class="top-logo">PHP-Box</div>
   <nav class="top-nav" id="nav">
-    <a class="on" data-tab="dash">📊 仪表盘</a>
+    <a class="on" data-tab="dash">🖥️ 仪表盘</a>
     <a data-tab="files">📁 文件管理</a>
     <a data-tab="logs">📋 日志</a>
   </nav>
@@ -21,7 +21,8 @@
       <input type="checkbox" id="themeSwitch">
       <span class="ts-track">🌙☀️</span>
     </label>
-    <button class="btn btn-sm" id="logoutBtn" title="退出登录" style="margin-left:10px;padding:4px 10px;font-size:12px">🚪 退出</button>
+    <button class="btn btn-sm" id="settingsBtn" title="修改密码" style="padding:4px 8px;font-size:14px">⚙️</button>
+    <button class="btn btn-sm" id="logoutBtn" title="退出登录" style="padding:4px 10px;font-size:12px">🚪 退出</button>
   </div>
 </div>
 
@@ -57,7 +58,7 @@
 
   <!-- 仪表盘 -->
   <section class="page on" id="pg-dash">
-    <h2 class="pg-title">📊 仪表盘</h2>
+    <h2 class="pg-title">🖥️ 仪表盘</h2>
     <div class="status-bar">
       <span class="ver-pill" id="dVer">-</span>
       <span class="state-pill" id="dState"><span class="dot" id="dDot"></span><span id="dStateTxt">-</span></span>
@@ -142,8 +143,8 @@
       <span class="mp-label">公众号</span>
       <div class="mp-popup"><img src="qr.png" alt="公众号二维码"></div>
     </div>
-    <a class="dash-ft-item dash-ft-link" href="https://github.com/kanchairen-d/PHP-Box" target="_blank" rel="noopener">
-      <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.07 1.87 3.75 3.65 3.95-.29.25-.54.73-.54 1.48 0 1.07.01 1.93.01 2.2 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8z"/></svg>
+    <a class="dash-ft-item" href="https://github.com/kanchairen-d/PHP-Box" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:none">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="var(--text-muted)"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.07 1.87 3.75 3.65 3.95-.29.25-.54.73-.54 1.48 0 1.07.01 1.93.01 2.2 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8z"/></svg>
       <span>GitHub</span>
     </a>
   </div>
@@ -261,11 +262,46 @@
   </div>
 </div>
 
+$
+$
+
+
+<!-- 设置弹窗 -->
+<div id="setOverlay" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.4);align-items:center;justify-content:center">
+  <div class="glass-dialog" style="border-radius:10px;width:400px;max-width:92%;padding:24px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <strong style="font-size:15px">⚙️ 修改账号密码</strong>
+      <button class="btn btn-sm" id="setCloseBtn">✕</button>
+    </div>
+    <div class="login-field">
+      <input id="setOldUser" class="f-input" placeholder="原用户名" style="text-align:center" spellcheck="false">
+    </div>
+    <div class="login-field">
+      <input id="setOldPass" type="password" class="f-input" placeholder="原密码" style="text-align:center" spellcheck="false">
+    </div>
+    <div style="border-top:1px solid var(--border-l);margin:4px 0"></div>
+    <div class="login-field">
+      <input id="setNewUser" class="f-input" placeholder="新用户名" style="text-align:center" spellcheck="false">
+    </div>
+    <div class="login-field">
+      <input id="setNewPass" type="password" class="f-input" placeholder="新密码" style="text-align:center" spellcheck="false">
+    </div>
+    <div id="setErr" style="font-size:13px;color:var(--red);min-height:0;text-align:center;opacity:0;transition:opacity .2s"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn" id="setCancelBtn">取消</button>
+      <button class="btn btn-primary" id="setSaveBtn">💾 保存</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast-wrap" id="tt"></div>
+
 <script src="vendor/ace/ace.js"></script>
 <script>
 ace.config.set('basePath', '/vendor/ace/');
 </script>
 <script src="app.js?v=2"></script>
+
+
 </body>
 </html>

@@ -928,6 +928,50 @@ async function refreshDashStatus() {
   } catch(e) {}
 }
 
+/* ===== 设置 ===== */
+$('settingsBtn').addEventListener('click', function() {
+  $('setOverlay').style.display = 'flex';
+  $('setOldUser').value = '';
+  $('setOldPass').value = '';
+  $('setNewUser').value = '';
+  $('setNewPass').value = '';
+  $('setErr').style.opacity = '0';
+  $('setOldUser').focus();
+});
+$('setCloseBtn').addEventListener('click', function() { $('setOverlay').style.display = 'none'; });
+$('setCancelBtn').addEventListener('click', function() { $('setOverlay').style.display = 'none'; });
+$('setSaveBtn').addEventListener('click', async function() {
+  var oldU = $('setOldUser').value.trim();
+  var oldP = $('setOldPass').value;
+  var newU = $('setNewUser').value.trim();
+  var newP = $('setNewPass').value;
+  if (!oldU || !oldP || !newU || !newP) {
+    $('setErr').textContent = '请填写完整';
+    $('setErr').style.opacity = '1';
+    return;
+  }
+  $('setSaveBtn').disabled = true;
+  $('setSaveBtn').textContent = '⏳ 保存中...';
+  try {
+    var r = await jf(API + '?action=change_credentials', {method:'POST', body:JSON.stringify({old_username:oldU, old_password:oldP, new_username:newU, new_password:newP})});
+    if (r.ok) {
+      tt('✅ 账号密码已更新，请重新登录');
+      $('setOverlay').style.display = 'none';
+      // 强制重新登录
+      await jf(API + '?action=logout', {method:'POST'});
+      showLogin();
+    } else {
+      $('setErr').textContent = r.error || '修改失败';
+      $('setErr').style.opacity = '1';
+    }
+  } catch(e) {
+    $('setErr').textContent = '网络错误';
+    $('setErr').style.opacity = '1';
+  }
+  $('setSaveBtn').disabled = false;
+  $('setSaveBtn').textContent = '💾 保存';
+});
+
 /* ===== 退出 ===== */
 $('logoutBtn').addEventListener('click', async function() {
   try {
@@ -973,6 +1017,7 @@ $('loginBtn').addEventListener('click', async function() {
 });
 $('loginPass').addEventListener('keydown', function(e) { if (e.key === 'Enter') $('loginBtn').click(); });
 $('loginUser').addEventListener('keydown', function(e) { if (e.key === 'Enter') $('loginPass').focus(); });
+$('setNewPass').addEventListener('keydown', function(e) { if (e.key === 'Enter') $('setSaveBtn').click(); });
 
 function showLoginErr(msg) {
   $('loginErr').textContent = msg;
