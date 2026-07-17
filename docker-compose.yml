@@ -1,27 +1,21 @@
 services:
   php-box:
+    build: .
     container_name: php-box
-    environment:
-    - TZ=Asia/Shanghai
-    - ADMIN_USER=admin
-    - ADMIN_PASS=admin
-    - PHP_DEFAULT=php84
-    healthcheck:
-      interval: 30s
-      retries: 3
-      start_period: 10s
-      test:
-      - CMD-SHELL
-      - wget -qO- http://127.0.0.1:80/healthz >/dev/null 2>&1 && wget -qO- http://127.0.0.1:8080/ >/dev/null 2>&1
-      timeout: 5s
-    image: ghcr.io/kanchairen-d/php-box:latest
-    restart: unless-stopped
     ports:
-      - 5080:80
-      - 5090:8080
+      - "5080:5080"   # 用户 PHP 站点
+      - "5090:5090"   # 管理后台
+    environment:
+      - TZ=Asia/Shanghai
+      - ADMIN_USER=admin
+      - ADMIN_PASS=admin
+      - PHP_DEFAULT=php84
     volumes:
       - ./repo:/var/www/repo
-      - ./nginx/php-box.conf:/etc/nginx/http.d/php-box.conf
-      - ./nginx/default.conf:/etc/nginx/http.d/default.conf
-      - ./html/index.html:/var/www/html/index.html
-      - ./html/app.js:/var/www/html/app.js
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "/usr/local/bin/php-box-hc"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3

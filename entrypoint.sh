@@ -27,6 +27,7 @@ fi
 
 # 修复仓库文件所有权（确保 nginx 可读写删除）
 chown -R nginx:nginx /var/www/repo
+find /var/www/repo -type d -exec chmod +x {} \;
 # 覆盖上传大小限制（无限制）
 sed -i "s/client_max_body_size 1m;/client_max_body_size 0;/" /etc/nginx/nginx.conf
 sed -i "s/^upload_max_filesize = .*/upload_max_filesize = 0/" /etc/php84/php.ini
