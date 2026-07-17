@@ -534,7 +534,7 @@ function newCreate() {
   if (!name) { tt('请输入名称', 'err'); return; }
   if (type === 'file') {
     jf(API + '?action=write', {method:'POST', body:JSON.stringify({path: fPath + '/' + name, content: ''})})
-      .then(function(r) { if(r.ok){tt('已创建文件');newClose();loadFiles(fPath);} else tt('创建失败: '+r.error,'err'); });
+      .then(function(r) { if(r.ok){tt('已创建文本');newClose();loadFiles(fPath);fEdit(fPath + '/' + name);} else tt('创建失败: '+r.error,'err'); });
   } else {
     jf(API + '?action=mkdir', {method:'POST', body:JSON.stringify({path: fPath + '/' + name})})
       .then(function(r) { if(r.ok){tt('已创建文件夹');newClose();loadFiles(fPath);} else tt('创建失败: '+r.error,'err'); });
