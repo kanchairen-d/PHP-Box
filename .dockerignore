@@ -1,0 +1,7 @@
+# 构建上下文排除
+.DS_Store
+Thumbs.db
+.git/
+*.md
+*.log
+公众号.png
